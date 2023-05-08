@@ -10,7 +10,9 @@ import { SkillService } from 'src/app/service/skill.service';
 })
 export class EditSkillComponent implements OnInit {
   skill: Skill = null;
-
+  isLogged = false;
+  imagenUrl: string = '';
+  
   constructor(
     private skillS: SkillService,
     private activatedRouter: ActivatedRoute,
@@ -30,8 +32,12 @@ export class EditSkillComponent implements OnInit {
 
   onUpdate(){
     const id = this.activatedRouter.snapshot.params['id'];
+    if(this.imagenUrl != '') {
+      this.skill.imagenC = this.imagenUrl;
+  }
     this.skillS.update(id, this.skill).subscribe(
       data => {
+        this.imagenUrl = '';
         this.router.navigate(['']);
       }, err => {
         alert("Error al modificar la skill");

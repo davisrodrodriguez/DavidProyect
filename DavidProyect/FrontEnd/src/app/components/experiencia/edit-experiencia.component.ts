@@ -10,6 +10,8 @@ import { SExperienciaService } from 'src/app/service/s-experiencia.service';
 })
 export class EditExperienciaComponent implements OnInit {
   expLab : Experiencia = null;
+  isLogged = false;
+  imagenUrl: string = '';
 
   constructor(
     private sExperiencia: SExperienciaService, 
@@ -33,6 +35,7 @@ export class EditExperienciaComponent implements OnInit {
       const id = this.activatedRouter.snapshot.params['id'];
       this.sExperiencia.update(id, this.expLab).subscribe(
         data => {
+          this.imagenUrl = '';
           this.router.navigate(['']);
         }, err =>{
            alert("Error al modificar experiencia");
@@ -40,5 +43,15 @@ export class EditExperienciaComponent implements OnInit {
         }
       )
     }
-  
+    uploadImageExperiencia(event: Event): void {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+              this.imagenUrl = reader.result as string;
+              this.expLab.imagenE = reader.result as string;
+          };
+      }
+    }
   }

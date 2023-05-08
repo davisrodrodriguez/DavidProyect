@@ -36,16 +36,16 @@ export class EditAcercaDeComponent implements OnInit {
       data => {
         this.router.navigate(['']);
       }, err => {
-        alert("Error al modificar la educacion");
+        alert("Error al modificar la Persona");
         this.router.navigate(['']);
       }
     )
 
   }
-  uploadImageProyectos($event:any){
+  uploadImage($event:any){
     const id = this.activatedRouter.snapshot.params['id'];  
     const name = "perfil_" + id;
-    this.imageService.uploadImageProyectos($event, name);
+    this.imageService.uploadImage($event, name);
 
   }
 }

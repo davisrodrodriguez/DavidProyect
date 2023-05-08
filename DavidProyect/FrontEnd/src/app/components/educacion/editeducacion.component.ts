@@ -10,7 +10,9 @@ import { EducacionService } from 'src/app/service/educacion.service';
 })
 export class EditeducacionComponent implements OnInit {
   educacion: Educacion = null;
-  
+  isLogged = false;
+  imagenUrl: string = '';
+
   constructor(
     private educacionS: EducacionService,
     private activatedRouter : ActivatedRoute,
@@ -33,11 +35,24 @@ export class EditeducacionComponent implements OnInit {
     const id = this.activatedRouter.snapshot.params['id'];
     this.educacionS.update(id, this.educacion).subscribe(
       data => {
+        this.imagenUrl = '';
         this.router.navigate(['']);
       }, err => {
         alert("Error al modificar la educacion");
         this.router.navigate(['']);
       }
     )
+  }
+
+  uploadImageEducacion(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.imagenUrl = reader.result as string;
+            this.educacion.imagenD = reader.result as string;
+        };
+    }
   }
 }

@@ -9,7 +9,8 @@ public class dtoExperiencia {
     private String nombreE;
     @NotBlank
     private String descripcionE;
-      
+    @NotBlank
+    private String imagenE;  
     
     //Constructores
 
@@ -17,10 +18,10 @@ public class dtoExperiencia {
     public dtoExperiencia() {
     }
 
-    public dtoExperiencia(String nombreE, String descripcionE) {
+    public dtoExperiencia(String nombreE, String descripcionE, String imagenE) {
         this.nombreE = nombreE;
         this.descripcionE = descripcionE;
-        
+        this.imagenE = imagenE;
     }
     //Getters & Setters
 
@@ -40,5 +41,12 @@ public class dtoExperiencia {
         this.descripcionE = descripcionE;
     }
     
+    public String getImagenE() {
+        return imagenE;
+    }
+
+    public void setImagenE(String imagenE) {
+        this.imagenE = imagenE;
+    }
    
 }

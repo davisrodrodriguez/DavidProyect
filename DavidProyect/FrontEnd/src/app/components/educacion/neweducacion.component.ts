@@ -9,8 +9,13 @@ import { EducacionService } from 'src/app/service/educacion.service';
   styleUrls: ['./neweducacion.component.css']
 })
 export class NeweducacionComponent implements OnInit {
+
   nombreE: string;
   descripcionE: string;
+  imagenD: string = '';
+  isLogged = false;
+  imagenUrl: string = '';
+
 
   constructor(private educacionS: EducacionService, private router: Router) { }
 
@@ -18,16 +23,20 @@ export class NeweducacionComponent implements OnInit {
   }
 
   onCreate(): void{
-    const educacion = new Educacion(this.nombreE, this.descripcionE);
-    this.educacionS.save(educacion).subscribe({next:
-      data =>{
+    const educacion = new Educacion(this.nombreE, this.descripcionE, this.imagenD);
+    this.educacionS.save(educacion).subscribe({
+      next: data => {
         alert("Educacion añadida correctamente");
         this.router.navigate(['']);
-      }, error: err =>{
-        alert("falló");
+      }, 
+      error: err => {
+        alert("Falló");
         this.router.navigate(['']);
-      }}
-    )
+      }
+    })
   }
-
-}
+  uploadImageProyectos(event: any): void {
+    this.imagenUrl = event.target.value;
+  }
+  
+  }

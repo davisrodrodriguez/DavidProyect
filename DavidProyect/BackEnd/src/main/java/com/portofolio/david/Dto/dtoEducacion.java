@@ -6,23 +6,23 @@ package com.portofolio.david.Dto;
 
 import javax.validation.constraints.NotBlank;
 
-
 public class dtoEducacion {
     @NotBlank
     private String nombreE;
     @NotBlank
     private String descripcionE;
+    @NotBlank
+    private String imagenD;
   
     
 
     public dtoEducacion() {
     }
 
-    public dtoEducacion(String nombreE, String descripcionE, String establecimiento, int startEducacion, String endEducacion) {
+    public dtoEducacion(String nombreE, String descripcionE, String imagenD) {
         this.nombreE = nombreE;
         this.descripcionE = descripcionE;
-     
-      
+        this.imagenD = imagenD;
     }
 
     public String getNombreE() {
@@ -40,9 +40,12 @@ public class dtoEducacion {
     public void setDescripcionE(String descripcionE) {
         this.descripcionE = descripcionE;
     }
-    
 
+    public String getImagenD() {
+        return imagenD;
+    }
 
-
-    
+    public void setImagenD(String imagenD) {
+        this.imagenD = imagenD;
+    }    
 }

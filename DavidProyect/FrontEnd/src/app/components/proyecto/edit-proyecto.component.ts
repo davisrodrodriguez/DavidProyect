@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Proyecto } from 'src/app/model/proyecto';
-import { ImageService } from 'src/app/service/image.service';
 import { SProyectoService } from 'src/app/service/s-proyecto.service';
 import { TokenService } from 'src/app/service/token.service';
 
@@ -15,10 +14,11 @@ import { TokenService } from 'src/app/service/token.service';
 export class EditProyectoComponent implements OnInit {
   proyecto:Proyecto= null;
   isLogged = false;
-  constructor(private sProyecto: SProyectoService, 
+  imagenUrl: string = '';
+
+  constructor(private proyectoService: SProyectoService, 
     private activatedRouter: ActivatedRoute, 
     private router: Router,
-    public imageServiceLogoP: ImageService,
     private tokenService: TokenService) { }
 
 
@@ -33,7 +33,7 @@ this.isLogged = true;
 this.isLogged = false;
 }
 
-this.sProyecto.detail(id).subscribe(
+this.proyectoService.detail(id).subscribe(
 data => {
 this.proyecto = data;
 }, err => {
@@ -45,31 +45,37 @@ this.router.navigate(['']);
 }
 
 onUpdate(): void {
-
-const id = this.activatedRouter.snapshot.params['id'];
-if(this.imageServiceLogoP.url != "") {
-this.proyecto.imagenP = this.imageServiceLogoP.url;
-}
-this.sProyecto.update(id, this.proyecto).subscribe(
-data => {
-this.imageServiceLogoP.clearUrl();
-this.router.navigate(['']);
-}, err => {
-alert("Error al modificar proyecto");
-this.router.navigate(['']);
-
-
-}
-)
-
-
+  const id = this.activatedRouter.snapshot.params['id'];
+  if(this.imagenUrl != '') {
+      this.proyecto.imagenP = this.imagenUrl;
+  }
+  this.proyectoService.update(id, this.proyecto).subscribe(
+      data => {
+          this.imagenUrl = '';
+          this.router.navigate(['']);
+      }, err => {
+          alert("Error al modificar proyecto");
+          this.router.navigate(['']);
+      }
+  )
 }
 
-uploadImageProyectos($event: any): void {
-  const carpeta = "proyecto";
-  this.imageServiceLogoP.uploadImage($event, carpeta);
+uploadImageProyectos(event: Event): void {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imagenUrl = reader.result as string;
+          this.proyecto.imagenP = reader.result as string;
+      };
+  }
 }
+
+
+
 }
+
 
 
 

@@ -16,7 +16,7 @@ export class ProyectoComponent implements OnInit {
   proyecto: Proyecto[] = [];
 
   constructor(private proyectoService: SProyectoService, 
-    private tokenService: TokenService, public imageService: ImageService) { }
+    private tokenService: TokenService, public imageServiceLogoP: ImageService) { }
 
   isLogged = false;
 

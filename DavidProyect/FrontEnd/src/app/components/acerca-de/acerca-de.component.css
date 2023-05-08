@@ -2,28 +2,28 @@
     padding: 20px;
 }
 div{
-    background-color: #a1b5cb;
+    background-color: #0a2a4d;
     text-align: center;
 }
-/* Estilo de la foto de perfil */
-@media (min-width:576px){
+/*Estilo de la foto de perfil*/
+@media (min-width: 576px){
     #fotodeperfil{
-       /* position: absolute;
-        width: 15%;*/
+        position: absolute;
+        width: 15%;
         border-radius: 100%;
         box-shadow: 3px 3px 3px grey;
-        /*left: 1%;
-        top: 450px;*/
+        left: 3%;
+        top:450px;
     }
 }
-@media (max-width:575px){
+@media (max-width: 575px){
     #fotodeperfil{
         position: absolute;
         width: 30%;
         border-radius: 100%;
         box-shadow: 3px 3px 3px grey;
-        left: 35%;
-        top: 950px;
+        left: 33%;
+        top:950px;
     }
 }
 
@@ -31,5 +31,7 @@ div{
 #nombre{
     font-weight: bold;
     margin-top: 30%;
-    
 }
+.row, h1, button, td {
+    color: white;
+  }
